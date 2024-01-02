@@ -1,6 +1,8 @@
 #pragma once
 
-#include <GL/glew.h>
+#include "glad/glad.h"
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include <GLFW/glfw3.h>
 #include <signal.h>
 
