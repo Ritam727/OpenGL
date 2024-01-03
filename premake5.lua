@@ -3,11 +3,14 @@ workspace "Cherno"
     configurations { "Debug", "Release" }
     platforms { "Linux", "Windows" }
 
-outputdir = ""
-
-IncludeDir = {}
-IncludeDir["vendor"] = "vendor/"
-IncludeDir["include"] = "include/"
+group "Dependencies"
+    include "src/include"
+    include "src/vendor/glad"
+    include "src/tests"
+    include "src/vendor/imgui"
+    include "src/vendor/stb_image"
+    include "src/vendor/glm"
+group""
 
 project "Application"
     kind "ConsoleApp"
@@ -36,7 +39,8 @@ project "Application"
         "GLU",
         "GL",
         "glfw",
-        "obj"
+        "obj",
+        "glad"
     }
 
     filter "configurations:Debug"
@@ -46,101 +50,3 @@ project "Application"
     filter "configurations:Release"
         defines { "NDEBUG" }
         symbols "Off"
-
-project "imgui"
-    kind "SharedLib"
-    language "C++"
-
-    buildoptions {
-        "-g",
-        "-fdiagnostics-color=always"
-    }
-    
-    targetdir "lib"
-    objdir "objects"
-
-    files {
-        "src/vendor/imgui/*"
-    }
-
-project "test"
-    kind "SharedLib"
-    language "C++"
-
-    buildoptions {
-        "-g",
-        "-fdiagnostics-color=always"
-    }
-
-    includedirs {
-        "src/vendor",
-        "src/include",
-        "src/vendor/glad/include"
-    }
-
-    targetdir "lib"
-    objdir "objects"
-
-    files {
-        "src/tests/*.cpp",
-        "src/test/*.hpp",
-        "src/vendor/glad/src/glad.c"
-    }
-
-project "glm"
-    kind "SharedLib"
-    language "C++"
-
-    buildoptions {
-        "-g",
-        "-fdiagnostics-color=always"
-    }
-
-    targetdir "lib"
-    objdir "objects"
-
-    files {
-        "src/vendor/glm/*"
-    }
-
-project "stbi"
-    kind "SharedLib"
-    language "C++"
-
-    buildoptions {
-        "-g",
-        "-fdiagnostics-color=always"
-    }
-
-    targetdir "lib"
-    objdir "objects"
-
-    files {
-        "src/vendor/stb_image/*"
-    }
-
-project "obj"
-    kind "SharedLib"
-    language "C++"
-
-    buildoptions {
-        "-g",
-        "-fdiagnostics-color=always"
-    }
-
-    targetdir "lib"
-    objdir "objects"
-
-    includedirs {
-        "src/vendor",
-        "src/vendor/glad/include"
-    }
-
-    links {
-        "stbi"
-    }
-
-    files {
-        "src/include/*.cpp",
-        "src/include/*.hpp"
-    }
