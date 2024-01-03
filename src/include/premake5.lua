@@ -2,17 +2,13 @@ project "obj"
     kind "SharedLib"
     language "C++"
 
-    buildoptions {
-        "-g",
-        "-fdiagnostics-color=always"
-    }
-
     targetdir "../../lib"
     objdir "../../objects"
 
     includedirs {
         "../vendor",
-        "../vendor/glad/include"
+        "../vendor/glad/include",
+        "../vendor/glfw/include"
     }
 
     links {
@@ -23,3 +19,19 @@ project "obj"
         "*.cpp",
         "*.hpp"
     }
+
+    filter "system:Linux"
+        defines {
+            "PLATFORM_LINUX"
+        }
+    
+    filter "system:windows"
+        defines {
+            "PLATFORM_WINDOWS"
+        }
+
+    filter "configurations:Debug"
+        buildoptions {
+            "-g",
+            "-fdiagnostics-color=always"
+        }

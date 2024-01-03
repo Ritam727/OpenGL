@@ -2,11 +2,6 @@ project "glad"
     kind "SharedLib"
     language "C++"
 
-    buildoptions {
-        "-g",
-        "-fdiagnostics-color=always"
-    }
-
     includedirs {
         "include"
     }
@@ -17,3 +12,9 @@ project "glad"
     files {
         "src/glad.c"
     }
+
+    filter "configurations:Debug"
+        buildoptions {
+            "-g",
+            "-fdiagnostics-color=always"
+        }

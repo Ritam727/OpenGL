@@ -11,7 +11,13 @@
 
 class VertexArray;
 
+#if defined PLATFORM_LINUX
 #define ASSERT(x) if (!(x)) raise(SIGTRAP);
+#elif defined PLATFORM_WINDOWS
+#define ASSERT(x) if (!(x)) __debugbreak();
+#else
+#define ASSERT(X) 1
+#endif
 #define GLCall(x)   GLClearError();\
                     x;\
                     ASSERT(GLLogCall(__FILE__, #x, __LINE__))

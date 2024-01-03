@@ -2,11 +2,6 @@ project "test"
     kind "SharedLib"
     language "C++"
 
-    buildoptions {
-        "-g",
-        "-fdiagnostics-color=always"
-    }
-
     links {
         "glad"
     }
@@ -24,3 +19,9 @@ project "test"
         "*.cpp",
         "*.hpp"
     }
+
+    filter "configurations:Debug"
+        buildoptions {
+            "-g",
+            "-fdiagnostics-color=always"
+        }
